@@ -1,0 +1,28 @@
+.stages__item {
+    max-width: 540px;
+    margin-bottom: 56px;
+}
+.stages__item:last-child {
+    margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .stages__item {
+        min-width: 319px;
+        margin-bottom: 0;
+        margin-right: 30px;
+    }
+    .stages__item:last-child {
+        margin-right: 0;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .stages__item {
+        min-width: 550px;
+        margin-right: 40px;
+    }
+    .stages__item:last-child {
+        margin-right: 0;
+    }
+} 

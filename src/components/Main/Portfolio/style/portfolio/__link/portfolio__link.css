@@ -1,0 +1,11 @@
+.portfolio__link {
+    display: block;
+    border-bottom: 1px solid #E6E6E6 ;
+    padding-bottom: 19px;
+    margin-bottom: 20px;
+}
+
+.portfolio__link:last-of-type {
+    border: none;
+    padding-bottom: 0px;
+}

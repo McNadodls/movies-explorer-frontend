@@ -1,0 +1,23 @@
+.input {
+    color: #8B8B8B;
+}
+
+.input::placeholder {
+	color: #8B8B8B;
+}
+
+.input:hover{
+	color: white;
+}
+
+.input:hover::placeholder {
+	color: white;
+}
+
+.input:focus{
+	color: white;
+}
+
+.input:focus::placeholder {
+	color: white;
+}

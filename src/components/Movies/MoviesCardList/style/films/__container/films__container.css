@@ -1,0 +1,22 @@
+.films__container {
+    box-sizing: border-box;
+	display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    gap: 16px;
+    margin: 0;
+    margin-bottom: 80px;
+}
+
+@media screen and (min-width: 768px) {
+    .films__container {
+        grid-template-columns: repeat(auto-fit, 342px);
+        gap: 32px 24px;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .films__container {
+        grid-template-columns: repeat(auto-fit, 360px);
+    }
+}

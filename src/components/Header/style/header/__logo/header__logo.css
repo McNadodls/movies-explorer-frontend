@@ -1,0 +1,8 @@
+.header__logo {
+    color: #FFFFFF;
+    width: 42px;
+    height: 38px;
+    background: 100% 100% url(../../../../../images/header/logo/logo.svg) no-repeat;
+    margin-right: 44px;
+    padding: 0;
+}

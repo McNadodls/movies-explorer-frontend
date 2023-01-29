@@ -1,0 +1,12 @@
+.profile__fieldset {
+    border: none;
+    display: flex;
+    width: 100%;
+    padding: 0 0 16px;
+    border-bottom: 1px #424242 solid;
+    margin: 0 0 17px;
+}
+
+.profile__fieldset:last-of-type {
+    border-bottom: none;
+}

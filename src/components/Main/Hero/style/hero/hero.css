@@ -1,0 +1,14 @@
+.hero {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: calc(100vh - 66px);
+    background: #073042 url(../../../../../images/hero/hero_background.svg) no-repeat center / cover;
+    background-size: 248px;
+}
+
+@media screen and (min-width: 768px) {
+    .hero {
+        background-size: 320px;
+    }
+}

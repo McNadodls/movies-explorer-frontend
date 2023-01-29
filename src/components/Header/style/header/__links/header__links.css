@@ -1,0 +1,13 @@
+.header__links {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 14px;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+    .header__links {
+        gap: 30px;
+    }
+} 

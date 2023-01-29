@@ -1,0 +1,15 @@
+.search-form__filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 45px;
+    padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .search-form__filter {
+        margin: 0;
+    }
+} 
+

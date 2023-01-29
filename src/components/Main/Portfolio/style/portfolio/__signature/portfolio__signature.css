@@ -1,0 +1,27 @@
+.portfolio__signature {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    width: 100%;
+    background: url(../../../../../../images/portfolio/arrow.svg) no-repeat right;
+    margin: 0;
+}
+
+
+@media screen and (min-width: 768px) {
+    .portfolio__signature {
+        font-size: 28px;
+        line-height: 50px;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .portfolio__signature {
+        font-size: 30px;
+        line-height: 50px;
+    }
+} 

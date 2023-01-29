@@ -1,0 +1,4 @@
+.menu-popup {
+    display: flex;
+    flex-direction: column;
+}

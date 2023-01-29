@@ -1,0 +1,16 @@
+.search-form__label {
+    font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 18px;
+    color: #FFFFFF;
+    margin-left: 13px;
+}
+
+@media screen and (min-width: 768px) {
+    .search-form__label {
+        font-size: 13px; 
+        margin-left: 15px;
+    }
+} 
