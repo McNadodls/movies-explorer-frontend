@@ -9,12 +9,30 @@ export default function Profile() {
                     <form className="profile__form">
                         <div className="profile__input-container">
                             <fieldset className="profile__fieldset">
-                            <label className="profile__label" htmlFor="input__profoleName">Имя</label>
-                            <Input placeholder="Имя" className="input profile__input" id="input__profoleName" name="input__profoleName"/>
+                                <label className="profile__label" htmlFor="input__profoleName">Имя</label>
+                                <Input 
+                                    placeholder="Имя" 
+                                    className="input profile__input" 
+                                    id="input__profoleName" 
+                                    name="input__profoleName"
+                                    type="text"
+                                    minLength="2"
+                                    maxLength="30"
+                                    required
+                                />
                             </fieldset>
                             <fieldset className="profile__fieldset">
-                            <label className="profile__label" htmlFor="input__profoleEmail">E-mail</label>
-                            <Input placeholder="E-mail@Email.ru" className="input profile__input" id="input__profoleEmail" name="input__profoleEmail"/>
+                                <label className="profile__label" htmlFor="input__profoleEmail">E-mail</label>
+                                <Input 
+                                    placeholder="E-mail@email.ru" 
+                                    className="input profile__input" 
+                                    id="input__profoleEmail" 
+                                    name="input__profoleEmail"
+                                    type="email"
+                                    minLength="2"
+                                    maxLength="30"
+                                    required
+                                />
                             </fieldset>
                         </div>
                         <div className="profile__btn-container">

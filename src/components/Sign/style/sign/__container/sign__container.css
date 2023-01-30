@@ -12,14 +12,14 @@
 @media screen and (min-width: 768px) {
     .sign__container {
         align-items: flex-start;
-        padding-top: 232px;
-        padding-bottom: 232px;
+        width: 396px;
+        height: 560px;
+        padding: 0;
     }
 } 
 
 @media screen and (min-width: 1280px) {
     .sign__container {
-        padding-top: 70px;
-        padding-bottom: 70px;
+
     }
 } 

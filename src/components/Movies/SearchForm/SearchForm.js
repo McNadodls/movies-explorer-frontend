@@ -7,8 +7,12 @@ export default function SearchForm () {
             <div className="section__page section__page_screen_movie">
                 <form className="search-form__form">
                     <div className="search-form__container">
-                        <img className="search-form__image" src={magnifier} />
-                        <Input className="input search-form__input" placeholder="Фильм"></Input>
+                        <img className="search-form__image" src={magnifier} alt="Поиск"/>
+                        <Input 
+                            className="input search-form__input" 
+                            placeholder="Фильм"
+                            required
+                        />
                         <button className="link search-form__submit">Найти</button>
                     </div>
                     <div class="search-form__filter">

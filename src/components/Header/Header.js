@@ -7,7 +7,7 @@ export default function Header ({loggedIn, onClickMenu}) {
     return(
         <header className="header">
             <div className="header__page">
-                <Link to="/" className="link header__logo"></Link>
+                <Link to="/main" className="link header__logo"></Link>
                 {!loggedIn ? 
                   <div className="header__links">
                       <Link to="/sign-up" className="link header__link">Регистрация</Link>

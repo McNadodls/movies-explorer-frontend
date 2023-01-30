@@ -1,6 +1,6 @@
 export default function Footer () {
     return(
-        <section className="footer section">
+        <footer className="footer section">
             <div className="section__page section__page_screen_movie">
                 <p className="footer__inscription">Учебный проект Яндекс.Практикум х BeatFilm.</p>
                 <div className="footer__container">
@@ -11,6 +11,6 @@ export default function Footer () {
                     <p className="footer__copyright">&#169; 2023</p>
                 </div>
             </div>
-        </section>
+        </footer>
     )
 }

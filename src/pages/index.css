@@ -98,9 +98,9 @@
 
 /*Portfolio*/
 @import url(../components/Main/Portfolio/style/portfolio/portfolio.css);
-@import url(../components/Main/Portfolio/style/portfolio/__navigation/portfolio__navigation.css);
+@import url(../components/Main/Portfolio/style/portfolio/__links/portfolio__links.css);
 @import url(../components/Main/Portfolio/style/portfolio/__link/portfolio__link.css);
-@import url(../components/Main/Portfolio/style/portfolio/__signature/portfolio__signature.css);
+@import url(../components/Main/Portfolio/style/portfolio/__arrow/portfolio__arrow.css);
 
 /*Страница SIGN*/
 @import url(../components/Sign/style/sign/sign.css);

@@ -11,14 +11,13 @@
 
 @media screen and (min-width: 768px) {
     .profile__container {
-        padding-top: 310px;
-        padding-bottom: 269px;
+        height: 445px;
+        padding: 0;
     }
 } 
 
 @media screen and (min-width: 1280px) {
     .profile__container {
-        padding-top: 148px;
-        padding-bottom: 70px;
+        height: 482px;
     }
 }

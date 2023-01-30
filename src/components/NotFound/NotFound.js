@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function NotFound({ history }) {
   return (
-    <section className="not-found">
+    <section className="not-found section">
         <div className="section__page section__page_screen_info">
             <div className="not-found__container">
               <div className="not-found__text-container">

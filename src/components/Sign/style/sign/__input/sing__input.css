@@ -14,9 +14,7 @@
     outline: none;
     transition: border-bottom 0.6s, transform 0.5s;
 }
-.sing__input:last-of-type {
-    margin: 0;
-}
+
 
 .sing__input:focus {
     border-bottom: 1px #4285F4 solid

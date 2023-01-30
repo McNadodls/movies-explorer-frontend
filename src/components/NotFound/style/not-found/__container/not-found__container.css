@@ -12,14 +12,12 @@
 
 @media screen and (min-width: 768px) {
     .not-found__container {
-        padding-top: 408px;
-        padding-bottom: 222px;
+        padding: 0;
+        height: 394px;
     }
 } 
 
 @media screen and (min-width: 1280px) {
     .not-found__container {
-        padding-top: 246px;
-        padding-bottom: 60px;
     }
 } 
