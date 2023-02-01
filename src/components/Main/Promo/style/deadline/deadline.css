@@ -1,0 +1,20 @@
+.deadline {
+    display: grid;
+    grid-template-columns: minmax(100px, 36fr) 64fr;
+    grid-auto-rows: 36px;
+    max-width: 540px;
+    margin: 0 auto;
+    align-items: center;
+}
+@media screen and (min-width: 768px) {
+    .deadline {
+        grid-template-columns: minmax(140px, 36fr) 64fr;
+        max-width: 100%;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .deadline {
+        grid-template-columns: minmax(228px, 36fr) 64fr;
+    }
+} 

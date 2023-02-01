@@ -1,0 +1,17 @@
+.section__page {
+    box-sizing: border-box;
+    max-width: 540px;
+    
+}
+
+@media screen and (min-width: 768px) {
+    .section__page {
+        max-width: 100%;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .section__page {
+        max-width: 1280px;
+    }
+} 

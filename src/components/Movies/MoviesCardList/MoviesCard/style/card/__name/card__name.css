@@ -1,0 +1,20 @@
+.card__name {
+    font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: #FFFFFF;
+    width: 200px; 
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+    .card__name {
+        width: 224px; 
+        font-size: 15px;
+    }
+} 

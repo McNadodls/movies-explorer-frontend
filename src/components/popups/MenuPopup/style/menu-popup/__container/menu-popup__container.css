@@ -1,0 +1,12 @@
+.menu-popup__container {
+    align-self: flex-end;
+    width: 100%;
+    height: 100%;
+    background-color: #202020;
+}
+
+@media screen and (min-width: 768px){
+    .menu-popup__container {
+        max-width: 520px;
+    }
+}

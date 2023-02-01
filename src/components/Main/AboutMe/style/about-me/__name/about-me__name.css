@@ -1,0 +1,26 @@
+.about-me__name { 
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    margin: 0 0 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .about-me__name {
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 16px;
+    }
+}  
+
+@media screen and (min-width: 1280px) {
+    .about-me__name {
+        font-size: 50px;
+        line-height: 58px;
+        margin-bottom: 18px;
+    }
+}  

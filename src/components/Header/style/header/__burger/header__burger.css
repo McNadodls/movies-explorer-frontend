@@ -1,0 +1,12 @@
+.header__burger {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    background: 100% 100% url(../../../../../images/header/burger/burger.svg) no-repeat;
+}
+
+@media screen and (min-width: 769px) {
+    .header__burger {
+        display: none;
+    }
+} 

@@ -1,0 +1,22 @@
+.header__button {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    width: 54px;
+    padding: 8px 0 8px;
+    color: #000000;
+    background-color: #3DDC84;
+    border-radius: 3px;
+    margin: 0;
+    border: none;
+}
+
+@media screen and (min-width: 768px) {
+    .header__button {
+        width: 76px;
+    }
+} 
+

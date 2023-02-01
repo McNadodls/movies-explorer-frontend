@@ -1,0 +1,12 @@
+.menu-popup__tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+@media screen and (min-width: 768px){
+    .menu-popup__tabs {
+        gap: 28px;
+    }
+}

@@ -1,0 +1,13 @@
+.not-found {
+    position: fixed;
+    background-color: #202020;
+    top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

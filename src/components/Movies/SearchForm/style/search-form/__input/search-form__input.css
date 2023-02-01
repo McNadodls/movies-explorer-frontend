@@ -1,0 +1,23 @@
+.search-form__input {
+	
+    outline: none;
+	border: none;
+	background: none;
+	display: inline;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+@media screen and (min-width: 768px) {
+	.search-form__input {
+        padding-left: 16px;
+		font-size: 18px;
+	}
+}

@@ -1,0 +1,21 @@
+.about-me__photo {
+    border-radius: 10px;
+    min-width: 100%;
+    height: 352px;
+    object-fit: cover;
+    object-position: bottom top;
+}
+
+@media screen and (min-width: 768px) {
+    .about-me__photo {
+        min-width: 255px;
+        height: 307px;
+    } 
+}  
+
+@media screen and (min-width: 1280px) {
+    .about-me__photo {
+        min-width: 270px;
+        height: 327px;
+    }
+} 

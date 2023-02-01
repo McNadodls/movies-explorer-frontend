@@ -1,0 +1,16 @@
+.menu-popup__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 144px 0 48px;
+}
+
+@media screen and (min-width: 768px){
+    .menu-popup__links {
+        padding: 159px 0 92px;
+    }
+}

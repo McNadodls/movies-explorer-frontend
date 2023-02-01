@@ -1,0 +1,22 @@
+.tech-grid__elem {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #303030;
+    border-radius: 10px;
+    margin: 0;
+    padding: 21px 0;
+    max-width: 84px;
+}
+
+@media screen and (min-width: 1280px) {
+    .tech-grid__elem {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

@@ -1,0 +1,17 @@
+.stages__signature {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400; 
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .stages__signature {
+        font-size: 12px;
+        line-height: 18px;
+    }
+} 
