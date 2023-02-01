@@ -1,9 +1,10 @@
 import photo from "../../../images/about-me/photo.jpg";
+
 export default function AboutMe () {
     return(
         <section className="about-me section">
             <div className="section__page section__page_screen_main">
-                <h2 className="section__title section__title_theme_white">Студент</h2>
+                <h2 className="section__title section__title_theme_white"><a name="student" />Студент</h2>
                 <div className="about-me__container">
                     <img className="about-me__photo" src={photo} alt="Личное фото"></img>
                     <div className="about-me__info">

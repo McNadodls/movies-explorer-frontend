@@ -2,7 +2,7 @@ export default function Promo () {
     return(
         <section className="promo section">
             <div className="section__page section__page_screen_main">
-                <h2 className="section__title section__title_theme_white">О проекте</h2>
+                <h2 className="section__title section__title_theme_white"><a name="promo" />О проекте</h2>
                 <div className="stages">
                     <div className="stages__item">
                         <h3 className="stages__title">Дипломный проект включал 5 этапов</h3>
