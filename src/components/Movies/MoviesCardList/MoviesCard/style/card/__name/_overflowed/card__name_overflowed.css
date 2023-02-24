@@ -1,0 +1,9 @@
+@keyframes card__name_overflowed {
+    to {transform: translateX(-100%);}
+  }
+
+.card__name_overflowed>span:hover {
+    display: inline-block;
+    animation: card__name_overflowed 10s linear infinite ;    
+}
+

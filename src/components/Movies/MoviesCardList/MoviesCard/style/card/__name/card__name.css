@@ -1,4 +1,8 @@
 .card__name {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-family: 'Inter', Arial, sans-serif;
 	font-style: normal;
     font-weight: 500;
@@ -7,9 +11,6 @@
     color: #FFFFFF;
     width: 200px; 
     margin: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {

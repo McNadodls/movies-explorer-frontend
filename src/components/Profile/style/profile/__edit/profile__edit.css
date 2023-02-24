@@ -1,13 +1,12 @@
-.profile__exit {
+.profile__edit {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 12px;
     line-height: 15px;
     text-align: center;
-    color: #EE3465;
+    color: #FFFFFF;
     background: none;
     border: none;
-    margin-top: 16px;
     padding: 0;
 }

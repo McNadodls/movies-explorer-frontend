@@ -1,8 +1,10 @@
 .profile__fieldset {
     border: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: fit-content(141px) 1fr;
+    grid-template-rows: 14px 17px;
     width: 100%;
-    padding: 0 0 16px;
+    padding: 0 0 2px;
     border-bottom: 1px #424242 solid;
     margin: 0 0 17px;
 }

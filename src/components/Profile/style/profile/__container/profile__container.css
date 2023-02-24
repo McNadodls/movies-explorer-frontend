@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    width: 100%;
+    width: 260px;
     height: 100vh;
     padding-top: 144px;
     padding-bottom: 40px;
@@ -11,6 +11,7 @@
 
 @media screen and (min-width: 768px) {
     .profile__container {
+        width: 410px; 
         height: 445px;
         padding: 0;
     }
