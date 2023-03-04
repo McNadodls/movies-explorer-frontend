@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import { Route } from "react-router-dom";
 
 
+
 export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, handleDeleteMovie}) {
 
     const [isSaved, setIsSaved] = useState(false)
@@ -34,6 +35,7 @@ export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, ha
             handleSavedMovie(filmInfo)
         } else {
             setIsSaved(false);
+            console.log(`D: ${filmInfo.nameRU}`);
             handleDelSaved(e)
         }
     }
@@ -46,7 +48,7 @@ export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, ha
           }
         })
         console.log(`D: ${filmInfo.nameRU}`)
-        handleDeleteMovie(mongoMovieId)
+        handleDeleteMovie(69)
     }
 
     if (isSaved) {

@@ -3,22 +3,30 @@ import React, { useEffect, useState } from "react";
 import Input from "../containers/Input/Input";
 import Form from "../containers/Form/Form";
 
-export default function Sign({handleSubmit, values, handleChange, errors, resetForm, isValid, textTille, textSubmit, textSignature, textLink, history}) {
+import {useDispatch} from "react-redux";
+import {handleSubmitSingIn, handleSubmitSignUp} from "../../store/signSlice"
 
-    function onSubmit (e) {
+
+export default function Sign({values, handleChange, errors, resetForm, isValid, textTille, textSubmit, textSignature, textLink, history}) {
+
+    const dispatch = useDispatch();
+
+    const {input__userName, input__userEmail, input__userPass} = values;
+
+    async function onSubmit (e) {
         e.preventDefault();
         if (history.location.pathname === '/sign-up') {
-            handleSubmit(values.input__userName, values.input__userEmail, values.input__userPass);
+            dispatch(handleSubmitSignUp({input__userName, input__userEmail, input__userPass}));
             console.log(values.input__userName, values.input__userEmail, values.input__userPass);
         } else {
-            handleSubmit(values.input__userEmail, values.input__userPass);
+            dispatch(handleSubmitSingIn({input__userEmail, input__userPass}));
+
             console.log(values.input__userEmail, values.input__userPass);
         }
         e.target.closest("form").reset();
         resetForm();
     }
-
-    return (
+    return(
         <section className="sign section">
             <div className="section__page section__page_screen_info">
                 <div className="sign__container">

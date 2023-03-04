@@ -3,39 +3,54 @@ import Input from "../../containers/Input/Input"
 import Form from "../../containers/Form/Form";
 import React, { useEffect, useState } from "react";
 
-export default function SearchForm ({allMovies, savedMovies, foundedMovies, savedFoundedMovies, onSearch, history, onClear}) {
+import {useSelector, useDispatch} from "react-redux";
+import {handleSearchMovie, clearFoundedMovies} from "../../../store/moviesSlice"
+
+export default function SearchForm ({history}) {
+
+    const dispatch = useDispatch();
+    const allMovies = useSelector(state => state.movies.allMovies);
+    const savedMovie = useSelector(state => state.movies.savedMovie);
+    const foundedMovies = useSelector(state => state.movies.foundedMovies);
+    const savedFoundedMovies = useSelector(state => state.movies.savedFoundedMovies);
     
     const [isShorts, setIsShorts] = useState(false);
-    const [queryValue, setQueryValue] = useState("");
+    const [query, setQuery] = useState("");
 
     useEffect(() => {
-        console.log(queryValue);
+        console.log(query);
         console.log(isShorts);
-    }, [isShorts, queryValue])
+    }, [isShorts, query])
 
     function handleSearch(e) {
         e.preventDefault();
-        console.log(JSON.parse(localStorage.getItem('foundedMovies')))
-        console.log(JSON.parse(sessionStorage.getItem('savedFoundedMovies')))
-        if (queryValue === "" && !isShorts) {
+        if (query === "" && !isShorts) {
             onClear();
         } else if (history.location.pathname === '/movie') {
-            onSearch(allMovies, queryValue, isShorts, false);
+            dispatch(handleSearchMovie({isSave: false, query, isShorts}));
         } else {
-            onSearch(savedMovies, queryValue, isShorts, true);
+            dispatch(handleSearchMovie({isSave: true, query, isShorts}));
+        }
+    }
+
+    function onClear() {
+        if (history.location.pathname === '/movie') {
+            dispatch(clearFoundedMovies(false));
+        } else {
+            dispatch(clearFoundedMovies(true));
         }
     }
 
     useEffect(() => {
         if (history.location.pathname === '/movie' && foundedMovies) {
-            setQueryValue(foundedMovies.query);
+            setQuery(foundedMovies.query);
             setIsShorts(foundedMovies.isShorts);
         } else if (history.location.pathname === '/saved-movie' &&  savedFoundedMovies) {
           /*Храним только в текущей сессии, если есть найденные сохраненные фильмы*/
-            setQueryValue(savedFoundedMovies.query);
+            setQuery(savedFoundedMovies.query);
             setIsShorts(savedFoundedMovies.isShorts);
         } else {
-            setQueryValue('');
+            setQuery('');
             setIsShorts(false);
         }
       }, [history.location.pathname])
@@ -47,8 +62,8 @@ export default function SearchForm ({allMovies, savedMovies, foundedMovies, save
                     <div className="search-form__container">
                         <img className="search-form__image" src={magnifier} alt="Поиск"/>
                         <Input 
-                            onChange = {(e) => {setQueryValue(e.target.value)}}
-                            value = {queryValue}
+                            onChange = {(e) => {setQuery(e.target.value)}}
+                            value = {query}
                             className="input search-form__input" 
                             placeholder="Фильм"
                             required

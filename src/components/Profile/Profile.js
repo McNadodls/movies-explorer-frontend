@@ -2,11 +2,18 @@ import { Link, Route } from "react-router-dom";
 import React, { useEffect, useState, useContext } from "react";
 import Input from "../containers/Input/Input";
 import Form from "../containers/Form/Form";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext.js";
 
-export default function Profile({handleLogOut, handleUpdateUser, values, handleChange, errors, isValid, resetForm}) {
+import {useDispatch, useSelector} from "react-redux"
+import {handleUpdateUser, handleLogOut} from "../../store/signSlice"
+import {clearMovie} from "../../store/moviesSlice"
 
-    const currentUser = useContext(CurrentUserContext);
+export default function Profile({values, handleChange, errors, isValid, resetForm}) {
+    
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.sign.currentUser);
+
+    const {input__profoleName, input__profoleEmail} = values;
+
     const [editForm, setEditForm] = useState(false);
 
     function cancelEditForm (e) {
@@ -18,8 +25,7 @@ export default function Profile({handleLogOut, handleUpdateUser, values, handleC
 
     function onSubmit (e) {
         e.preventDefault();
-        console.log(values.input__profoleName, values.input__profoleEmail);
-        handleUpdateUser(values.input__profoleName, values.input__profoleEmail);
+        dispatch(handleUpdateUser({input__profoleName, input__profoleEmail}));
         setEditForm(false);
         e.target.closest("form").reset();
         resetForm();
@@ -27,7 +33,8 @@ export default function Profile({handleLogOut, handleUpdateUser, values, handleC
 
     function logOut (e) {
         e.preventDefault();
-        handleLogOut();
+        dispatch(handleLogOut());
+        dispatch(clearMovie());
         e.target.closest("form").reset();
         resetForm();
     }

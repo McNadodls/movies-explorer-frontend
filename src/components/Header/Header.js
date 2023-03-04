@@ -22,7 +22,7 @@ export default function Header ({loggedIn, onClickMenu}) {
                     <div className="header__tabs">
                       <ProfileLink />
                     </div>
-                    <Link className="link header__burger" onClick={onClickMenu}/>
+                    <a className="link header__burger" onClick={onClickMenu}/>
                   </div>  
                 }
             </div>

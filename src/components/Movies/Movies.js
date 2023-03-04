@@ -2,81 +2,68 @@ import SearchForm from "./SearchForm/SearchForm"
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
 import React, { useEffect, useMemo, useState } from "react";
 import { Route, Redirect, Switch, useRouteMatch, useHistory, Router } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {handleSaveMovie, handleDeleteMovie} from "../../store/moviesSlice"
 
+export default function Movies({quantityFilms, handleMoreButton, history, setPreload}) {
 
-export default function Movies({allMovies, savedMovies, quantityFilms, handleMoreButton, handleSavedMovie, handleDeleteMovie, history, setPreload}) {
-
-    const [foundedMovies, setFoundedMovies] = useState(JSON.parse(localStorage.getItem('foundedMovies')));
-    const [savedFoundedMovies, setSavedFoundedMovies] = useState(JSON.parse(sessionStorage.getItem('savedFoundedMovies')));
     
-    function handleFoundMovies(arrMovies, queryValue, isShorts) {
-        console.log(arrMovies);
-        return arrMovies.filter((movie) => {
-            return movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && !isShorts ? movie
-            : movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && isShorts && movie.duration <= 40
-              ? movie : false
-        })
-    }
+    const dispatch = useDispatch();
+    const allMovies = useSelector(state => state.movies.allMovies);
+    const savedMovies = useSelector(state => state.movies.savedMovies);
+    const foundedMovies = useSelector(state => state.movies.foundedMovies);
+    const savedFoundedMovies = useSelector(state => state.movies.savedFoundedMovies);
 
-    function handleSearchMovie(arrMovies, queryValue, isShorts, isSave) {
-        console.log(allMovies)
-        setPreload(true);
-        const foundMovies = handleFoundMovies(arrMovies, queryValue, isShorts);
-        if (!isSave) {
-            localStorage.setItem('foundedMovies', JSON.stringify({
-                movies: foundMovies,
-                query: queryValue,
-                isShorts: isShorts,
-              }))
-            setFoundedMovies(JSON.parse(localStorage.getItem('foundedMovies')))
-        } else {
-            sessionStorage.setItem('savedFoundedMovies', JSON.stringify({
-                movies: foundMovies,
-                query: queryValue,
-                isShorts: isShorts,
-              }))
-            setSavedFoundedMovies(JSON.parse(sessionStorage.getItem('savedFoundedMovies')))
-        }
-        setPreload(false);
-    }
+    // function handleFoundMovies(arrMovies, queryValue, isShorts) {
+    //     console.log(arrMovies);
+    //     return arrMovies.filter((movie) => {
+    //         return movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && !isShorts ? movie
+    //         : movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && isShorts && movie.duration <= 40
+    //           ? movie : false
+    //     })
+    // }
 
-    function clearSearch() {
-        if (history.location.pathname === '/movies') {
-          localStorage.removeItem('foundedMovies');
-          setFoundedMovies(null)
-        } else {
-          sessionStorage.removeItem('savedFoundedMovies');
-          setSavedFoundedMovies(null)
-        }
+    // function handleSearchMovie(arrMovies, queryValue, isShorts, isSave) {
+    //     console.log(allMovies)
+    //     setPreload(true);
+    //     const foundMovies = handleFoundMovies(arrMovies, queryValue, isShorts);
+    //     if (!isSave) {
+    //         localStorage.setItem('foundedMovies', JSON.stringify({
+    //             movies: foundMovies,
+    //             query: queryValue,
+    //             isShorts: isShorts,
+    //           }))
+    //         setFoundedMovies(JSON.parse(localStorage.getItem('foundedMovies')))
+    //     } else {
+    //         sessionStorage.setItem('savedFoundedMovies', JSON.stringify({
+    //             movies: foundMovies,
+    //             query: queryValue,
+    //             isShorts: isShorts,
+    //           }))
+    //         setSavedFoundedMovies(JSON.parse(sessionStorage.getItem('savedFoundedMovies')))
+    //     }
+    //     setPreload(false);
+    // }
+
+    function saveMovie (movieInfo) {
+        dispatch(handleSaveMovie(movieInfo));
     }
 
     function deleteMovie (id) {
-        handleDeleteMovie(id)
-            .then((res) => {setSavedFoundedMovies(JSON.parse(sessionStorage.getItem('savedFoundedMovies')))})
+        dispatch(handleDeleteMovie(id));
     }
-    
-    const renderMovie = useMemo(() =>{
-        return history.location.pathname === '/movie'? 
-            foundedMovies ? foundedMovies.movies : []
-            : savedFoundedMovies ? savedFoundedMovies.movies : savedMovies
-    }, [history.location.pathname, allMovies, savedMovies, foundedMovies, savedFoundedMovies])
 
     return (
         <div className="movies">
-            <SearchForm 
-                allMovies = {allMovies}
-                savedMovies = {savedMovies}
-                foundedMovies = {foundedMovies}
-                savedFoundedMovies = {savedFoundedMovies}
-                onSearch = {handleSearchMovie}
-                onClear = {clearSearch}
+            <SearchForm
                 history = {history}
             />
             <Route path="/movie">
                 <MoviesCardList 
-                    movies = {renderMovie}
+                    movies = {allMovies}
+                    moviesFounded = {foundedMovies}
                     savedMovies = {savedMovies}
-                    handleSavedMovie = {handleSavedMovie}
+                    handleSavedMovie = {saveMovie}
                     handleDeleteMovie = {deleteMovie}
                     quantityFilms = {quantityFilms}
                     handleMoreButton = {handleMoreButton}
@@ -85,9 +72,10 @@ export default function Movies({allMovies, savedMovies, quantityFilms, handleMor
             </Route>
             <Route path="/saved-movie">
                 <MoviesCardList 
-                    movies = {renderMovie}
+                    movies = {savedMovies}
+                    moviesFounded = {savedFoundedMovies}
                     savedMovies = {savedMovies}
-                    handleSavedMovie = {handleSavedMovie}
+                    handleSavedMovie = {saveMovie}
                     handleDeleteMovie = {deleteMovie}
                     quantityFilms = {quantityFilms}
                     handleMoreButton = {handleMoreButton}
