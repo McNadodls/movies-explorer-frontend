@@ -20,8 +20,9 @@ import NotFound from "./NotFound/NotFound";
 // import MoviesApi from "../utils/MoviesApi";
 // import MainApi from "../utils/MainApi";
 
-import {useSelector, useDispatch} from "react-redux";
-import {getAllMovies, getSavedMovie} from "../store/moviesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllMovies, getSavedMovie } from "../store/moviesSlice";
+import { getCurentUser } from "../store/signSlice";
 
 
 
@@ -31,6 +32,10 @@ export default function App() {
     const history = useHistory();
 
     const dispatch = useDispatch();
+    const status = [
+        useSelector(state => state.sign.status),
+        useSelector(state => state.movies.status)
+    ]
     const statusSign = useSelector(state => state.sign.status);
     const loggedIn = useSelector(state => state.sign.loggedIn);
     const currentUser = useSelector(state => state.sign.currentUser);
@@ -109,6 +114,12 @@ export default function App() {
     }, [loggedIn]);
 
     // //информация о user
+    useEffect(() => {
+        if(!loggedIn) {
+            dispatch(getCurentUser());
+        }
+    }, []);
+
     // useEffect(() => {
     //     if(!loggedIn) {
     //         setPreload(true);

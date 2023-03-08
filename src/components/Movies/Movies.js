@@ -1,9 +1,9 @@
-import SearchForm from "./SearchForm/SearchForm"
-import MoviesCardList from "./MoviesCardList/MoviesCardList"
+import SearchForm from "./SearchForm/SearchForm";
+import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import React, { useEffect, useMemo, useState } from "react";
 import { Route, Redirect, Switch, useRouteMatch, useHistory, Router } from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
-import {handleSaveMovie, handleDeleteMovie} from "../../store/moviesSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { handleSaveMovie, handleDeleteMovie } from "../../store/moviesSlice";
 
 export default function Movies({quantityFilms, handleMoreButton, history, setPreload}) {
 

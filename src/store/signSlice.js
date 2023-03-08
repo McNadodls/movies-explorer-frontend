@@ -1,22 +1,49 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 
+//получение пользователя
+export const getCurentUser = createAsyncThunk(
+    "sign/getCurentUser",
+    async function(_, {rejectWithValue, dispatch}) {
+        try {
+            const response = await fetch('https://api.mcnad.movie.nomoredomains.work/users/me' , {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include'
+            });
+            if (!response.ok){
+                throw new Error('Can\'t toggle status. Server error.');
+            }
+            const data = await response.json();
+            dispatch(setCurentUser(data))
+        } catch (err) {
+            return rejectWithValue(err.message);
+        }
+    }
+)
+
 //регистрация
 export const handleSubmitSignUp = createAsyncThunk(
     "sign/handleSubmitSignUp",
     async function({input__userName, input__userEmail, input__userPass}, {rejectWithValue, dispatch}) {
         try {
-            // const response = await fetch('https://api.nomoreparties.co/beatfilm-movies' , {
-            //     method: 'GET',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            // });
-            // if (!response.ok){
-            //     throw new Error('Can\'t toggle status. Server error.');
-            // }
-            // const data = await response.json();
-            dispatch(submitSignUp({input__userName, input__userEmail, input__userPass}))
-            // return data
+            const response = await fetch('https://api.mcnad.movie.nomoredomains.work/signup' , {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "name": input__userName,
+                    "email": input__userEmail,
+                    "password": input__userPass,
+                  })
+            });
+            if (!response.ok){
+                throw new Error('Can\'t toggle status. Server error.');
+            }
+            const data = await response.json();
+            dispatch(submitSignUp(data))
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -28,18 +55,21 @@ export const handleSubmitSingIn = createAsyncThunk(
     "sign/handleSubmitSingIn",
     async function({input__userEmail, input__userPass}, {rejectWithValue, dispatch}) {
         try {
-            // const response = await fetch('https://api.nomoreparties.co/beatfilm-movies' , {
-            //     method: 'GET',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            // });
-            // if (!response.ok){
-            //     throw new Error('Can\'t toggle status. Server error.');
-            // }
-            // const data = await response.json();
-            dispatch(submitSingIn({input__userEmail, input__userPass}))
-            // return data
+            const response = await fetch('https://api.mcnad.movie.nomoredomains.work/signin' , {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "email": input__userEmail,
+                    "password": input__userPass,
+                  })
+            });
+            if (!response.ok){
+                throw new Error('Can\'t toggle status. Server error.');
+            }
+            const data = await response.json();
+            dispatch(submitSingIn(data))
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -51,18 +81,22 @@ export const handleUpdateUser = createAsyncThunk(
     "sign/handleUpdateUser",
     async function({input__profoleName, input__profoleEmail}, {rejectWithValue, dispatch}) {
         try {
-            // const response = await fetch('https://api.nomoreparties.co/beatfilm-movies' , {
-            //     method: 'GET',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            // });
-            // if (!response.ok){
-            //     throw new Error('Can\'t toggle status. Server error.');
-            // }
-            // const data = await response.json();
-            dispatch(updateUser({input__profoleName, input__profoleEmail}))
-            // return data
+            const response = await fetch('https://api.mcnad.movie.nomoredomains.work/users/me' , {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    "name": input__profoleName,
+                    "email": input__profoleEmail,
+                }),
+            });
+            if (!response.ok){
+                throw new Error('Can\'t toggle status. Server error.');
+            }
+            const data = await response.json();
+            dispatch(updateUser(data))
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -74,16 +108,18 @@ export const handleLogOut = createAsyncThunk(
     "sign/handleLogOut",
     async function(_, {rejectWithValue, dispatch}) {
         try {
-            // const response = await fetch('https://api.nomoreparties.co/beatfilm-movies' , {
-            //     method: 'GET',
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            // });
-            // if (!response.ok){
-            //     throw new Error('Can\'t toggle status. Server error.');
-            // }
-            // const data = await response.json();
+            const response = await fetch('https://api.mcnad.movie.nomoredomains.work/signout' , {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: 'include',
+            });
+            if (!response.ok){
+                throw new Error('Can\'t toggle status. Server error.');
+            }
+            const data = await response.json();
+            console.log(data);
             dispatch(logOut())
             // return data
         } catch (err) {
@@ -108,30 +144,26 @@ const signSlice = createSlice({
         currentUser: {}
     },
     reducers: {
+        setCurentUser(state, action) {
+            state.loggedIn = true;
+            state.currentUser = action.payload;
+            console.log(state.currentUser);
+        },
         submitSignUp(state, action) {
             state.loggedIn = true;
-            state.currentUser = {
-                "name": action.payload.input__userName,
-                "email": action.payload.input__userEmail,
-                "password": action.payload.input__userPass
-            };
+            state.currentUser = action.payload;
             console.log(state.currentUser);
         },
         submitSingIn(state, action) {
             state.loggedIn = true;
-            state.currentUser = {
-                "name": "жопа",
-                "email": action.payload.input__userEmail,
-                "password": action.payload.input__userPass
-            };
+            state.currentUser = action.payload;
             console.log(state.currentUser);
         }, 
         updateUser(state, action) {
-            console.log(action.payload.input__profoleEmail, action.payload.input__profoleName)
             state.currentUser = {
                 ...state.currentUser,
-                "email": action.payload.input__profoleEmail,
-                "name": action.payload.input__profoleName
+                "email": action.payload.email,
+                "name": action.payload.name,
             }
             console.log(state.currentUser);
         },
@@ -142,6 +174,15 @@ const signSlice = createSlice({
         },
     },
     extraReducers: {
+        //получение пользователя
+        [getCurentUser.pending]: (state) => {
+            state.status = 'loading';
+            console.log(state.status);
+        },
+        [getCurentUser.fulfilled]: (state, action) => {
+            state.status = "resolved";
+            console.log(state.status);
+        },
         //регистрация
         [handleSubmitSignUp.pending]: (state) => {
             state.status = 'loading';
@@ -185,6 +226,6 @@ const signSlice = createSlice({
     },
 
 })
-export const {submitSignUp, submitSingIn, updateUser, logOut} = signSlice.actions;
+export const {setCurentUser, submitSignUp, submitSingIn, updateUser, logOut} = signSlice.actions;
 
 export default signSlice.reducer;

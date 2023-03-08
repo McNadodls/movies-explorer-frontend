@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk, compose} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, compose } from "@reduxjs/toolkit";
 
 //получение всех фильмов
 export const getAllMovies = createAsyncThunk(
