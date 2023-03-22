@@ -13,18 +13,22 @@ export default function Sign({values, handleChange, errors, resetForm, isValid, 
 
     const {input__userName, input__userEmail, input__userPass} = values;
 
-    async function onSubmit (e) {
+     function onSubmit (e) {
         e.preventDefault();
-        if (history.location.pathname === '/sign-up') {
-            dispatch(handleSubmitSignUp({input__userName, input__userEmail, input__userPass}));
-            console.log(values.input__userName, values.input__userEmail, values.input__userPass);
-        } else {
-            dispatch(handleSubmitSingIn({input__userEmail, input__userPass}));
 
-            console.log(values.input__userEmail, values.input__userPass);
-        }
-        e.target.closest("form").reset();
-        resetForm();
+        (async function () {
+            if (history.location.pathname === '/sign-up') {
+                dispatch(await handleSubmitSignUp({input__userName, input__userEmail, input__userPass}));
+                console.log(values.input__userName, values.input__userEmail, values.input__userPass);
+            } else {
+                dispatch(await handleSubmitSingIn({input__userEmail, input__userPass}));
+    
+                console.log(values.input__userEmail, values.input__userPass);
+            }
+            history.push('/movie');
+            e.target.closest("form").reset();
+            resetForm();
+        })()
     }
     return(
         <section className="sign section">

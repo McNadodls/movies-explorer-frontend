@@ -10,20 +10,24 @@ export default function SearchForm ({history}) {
 
     const dispatch = useDispatch();
     const allMovies = useSelector(state => state.movies.allMovies);
-    const savedMovie = useSelector(state => state.movies.savedMovie);
+    const savedMovies = useSelector(state => state.movies.savedMovies);
     const foundedMovies = useSelector(state => state.movies.foundedMovies);
     const savedFoundedMovies = useSelector(state => state.movies.savedFoundedMovies);
     
     const [isShorts, setIsShorts] = useState(false);
     const [query, setQuery] = useState("");
 
-    useEffect(() => {
-        console.log(query);
-        console.log(isShorts);
-    }, [isShorts, query])
-
     function handleSearch(e) {
         e.preventDefault();
+        search(isShorts);
+      }
+    
+      function handleChangeShorts (e) {
+        setIsShorts(!isShorts);
+        search(!isShorts);
+      }
+
+    function search(isShorts) {
         if (query === "" && !isShorts) {
             onClear();
         } else if (history.location.pathname === '/movie') {
@@ -71,7 +75,7 @@ export default function SearchForm ({history}) {
                         <button className="link search-form__submit">Найти</button>
                     </div>
                     <div class="search-form__filter">
-                        <input onChange={(e) => {setIsShorts(!isShorts)}} checked={isShorts} value={isShorts} type="checkbox" id="search-form__checkbox" class="search-form__checkbox" />
+                        <input onChange={handleChangeShorts} checked={isShorts} value={isShorts} type="checkbox" id="search-form__checkbox" class="search-form__checkbox" />
                         <label htmlFor="search-form__checkbox" class="search-form__label">Короткометражки</label>
                     </div>
                 </Form>

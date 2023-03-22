@@ -5,7 +5,7 @@ import { Route, Redirect, Switch, useRouteMatch, useHistory, Router } from "reac
 import { useSelector, useDispatch } from "react-redux";
 import { handleSaveMovie, handleDeleteMovie } from "../../store/moviesSlice";
 
-export default function Movies({quantityFilms, handleMoreButton, history, setPreload}) {
+export default function Movies({quantityFilms, handleMoreButton, history}) {
 
     
     const dispatch = useDispatch();
@@ -13,37 +13,6 @@ export default function Movies({quantityFilms, handleMoreButton, history, setPre
     const savedMovies = useSelector(state => state.movies.savedMovies);
     const foundedMovies = useSelector(state => state.movies.foundedMovies);
     const savedFoundedMovies = useSelector(state => state.movies.savedFoundedMovies);
-
-    // function handleFoundMovies(arrMovies, queryValue, isShorts) {
-    //     console.log(arrMovies);
-    //     return arrMovies.filter((movie) => {
-    //         return movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && !isShorts ? movie
-    //         : movie.nameRU.toUpperCase().includes(queryValue.toUpperCase()) && isShorts && movie.duration <= 40
-    //           ? movie : false
-    //     })
-    // }
-
-    // function handleSearchMovie(arrMovies, queryValue, isShorts, isSave) {
-    //     console.log(allMovies)
-    //     setPreload(true);
-    //     const foundMovies = handleFoundMovies(arrMovies, queryValue, isShorts);
-    //     if (!isSave) {
-    //         localStorage.setItem('foundedMovies', JSON.stringify({
-    //             movies: foundMovies,
-    //             query: queryValue,
-    //             isShorts: isShorts,
-    //           }))
-    //         setFoundedMovies(JSON.parse(localStorage.getItem('foundedMovies')))
-    //     } else {
-    //         sessionStorage.setItem('savedFoundedMovies', JSON.stringify({
-    //             movies: foundMovies,
-    //             query: queryValue,
-    //             isShorts: isShorts,
-    //           }))
-    //         setSavedFoundedMovies(JSON.parse(sessionStorage.getItem('savedFoundedMovies')))
-    //     }
-    //     setPreload(false);
-    // }
 
     function saveMovie (movieInfo) {
         dispatch(handleSaveMovie(movieInfo));

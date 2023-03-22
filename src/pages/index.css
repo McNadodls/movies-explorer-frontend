@@ -51,6 +51,8 @@
 
 /*popup*/
 @import url(../components/containers/popup/popup.css);
+@import url(../components/containers/popup/__close-btn/popup__close-btn.css);
+/*menu-popup*/
 @import url(../components/popups/MenuPopup/style/menu-popup/menu-popup.css);
 @import url(../components/popups/MenuPopup/style/menu-popup/__container/menu-popup__container.css);
 @import url(../components/popups/MenuPopup/style/menu-popup/__tabs/menu-popup__tabs.css);
@@ -58,6 +60,12 @@
 @import url(../components/popups/MenuPopup/style/menu-popup/__tabs/menu-popup__tabs.css);
 @import url(../components/popups/MenuPopup/style/menu-popup/__link/menu-popup__link.css);
 @import url(../components/popups/MenuPopup/style/menu-popup/__close-btn/menu-popup__close-btn.css);
+/*popup-error*/
+@import url(../components/popups/ErrorsPopup/style/errors-popup/errors-popup.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__list/errors-popup__list.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__card/errors-popup__card.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__close-btn/errors-popup__close-btn.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__text/errors-popup__text.css);
 
 /*Страница MAIN*/
 @import url(../components/Main/style/main/main.css);

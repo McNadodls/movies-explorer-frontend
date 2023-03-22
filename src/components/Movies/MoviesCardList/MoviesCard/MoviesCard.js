@@ -5,16 +5,8 @@ import { Route } from "react-router-dom";
 
 export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, handleDeleteMovie}) {
 
-    const [isSaved, setIsSaved] = useState(false)
+    const [isSaved, setIsSaved] = useState(filmInfo.isSaved)
     const btnSavedClasses = ['link card__button'];
-
-    useEffect(() => {
-        savedMovies.forEach((movie) => {
-          if (movie.movieId === filmInfo.movieId) {
-            setIsSaved(true);
-          }
-        })
-      }, [savedMovies]);
 
     function mathTime(duration) {
         return `${duration/60 > 0 ? `${Math.floor(duration/60)} ч ${duration%60 === 0 ? '' : `${duration - Math.floor(duration/60)*60} м`}` : `${duration} м`}`
@@ -29,7 +21,7 @@ export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, ha
     }
 
     function handleIsSaved(e) {
-        if (!isSaved) {
+        if (!filmInfo.isSaved) {
             setIsSaved(true);
             console.log(`лакнул ${filmInfo.nameRU}`);
             handleSavedMovie(filmInfo)
@@ -48,10 +40,10 @@ export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, ha
           }
         })
         console.log(`D: ${filmInfo.nameRU}`)
-        handleDeleteMovie(69)
+        handleDeleteMovie(mongoMovieId)
     }
 
-    if (isSaved) {
+    if (filmInfo.isSaved) {
         btnSavedClasses.push('card__button_status_liked');
     }
 
@@ -64,7 +56,7 @@ export default function MoviesCard ({filmInfo, savedMovies, handleSavedMovie, ha
             <a href={filmInfo.trailerLink} target="_blank" className="link">
                 <img className="card__image" src={filmInfo.image} alt={filmInfo.nameRU}></img>
             </a>
-            <Route path="/movie"><button onClick={handleIsSaved} type="button" className={btnSavedClasses.join(' ')}>{!isSaved ? "Сохранить": ""}</button></Route>
+            <Route path="/movie"><button onClick={handleIsSaved} type="button" className={btnSavedClasses.join(' ')}>{!filmInfo.isSaved ? "Сохранить": ""}</button></Route>
             <Route path="/saved-movie"><button onClick={handleDelSaved} type="button" className="link card__button card__button_status_saved"></button></Route>
         </div>
     )

@@ -3,17 +3,19 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 //получение пользователя
 export const getCurentUser = createAsyncThunk(
     "sign/getCurentUser",
-    async function(_, {rejectWithValue, dispatch}) {
+    async function(_, {rejectWithValue, dispatch, getState}) {
+        const token = getState().sign.currentUser.token;
         try {
             const response = await fetch('https://api.mcnad.movie.nomoredomains.work/users/me' , {
                 method: 'GET',
                 headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: 'include'
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                }
             });
             if (!response.ok){
-                throw new Error('Can\'t toggle status. Server error.');
+                const err = await response.json();
+                throw new Error(err.message);
             }
             const data = await response.json();
             dispatch(setCurentUser(data))
@@ -40,7 +42,8 @@ export const handleSubmitSignUp = createAsyncThunk(
                   })
             });
             if (!response.ok){
-                throw new Error('Can\'t toggle status. Server error.');
+                const err = await response.json();
+                throw new Error(err.message);
             }
             const data = await response.json();
             dispatch(submitSignUp(data))
@@ -66,7 +69,8 @@ export const handleSubmitSingIn = createAsyncThunk(
                   })
             });
             if (!response.ok){
-                throw new Error('Can\'t toggle status. Server error.');
+                const err = await response.json();
+                throw new Error(err.message);
             }
             const data = await response.json();
             dispatch(submitSingIn(data))
@@ -79,12 +83,14 @@ export const handleSubmitSingIn = createAsyncThunk(
 //изменение профиля
 export const handleUpdateUser = createAsyncThunk(
     "sign/handleUpdateUser",
-    async function({input__profoleName, input__profoleEmail}, {rejectWithValue, dispatch}) {
+    async function({input__profoleName, input__profoleEmail}, {rejectWithValue, dispatch, getState}) {
+        const token = getState().sign.currentUser.token;
         try {
             const response = await fetch('https://api.mcnad.movie.nomoredomains.work/users/me' , {
                 method: 'PATCH',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
                 },
                 credentials: 'include',
                 body: JSON.stringify({
@@ -93,7 +99,8 @@ export const handleUpdateUser = createAsyncThunk(
                 }),
             });
             if (!response.ok){
-                throw new Error('Can\'t toggle status. Server error.');
+                const err = await response.json();
+                throw new Error(err.message);
             }
             const data = await response.json();
             dispatch(updateUser(data))
@@ -116,12 +123,12 @@ export const handleLogOut = createAsyncThunk(
                 credentials: 'include',
             });
             if (!response.ok){
-                throw new Error('Can\'t toggle status. Server error.');
+                const err = await response.json();
+                throw new Error(err.message);
             }
             const data = await response.json();
             console.log(data);
             dispatch(logOut())
-            // return data
         } catch (err) {
             return rejectWithValue(err.message);
         }
@@ -130,9 +137,8 @@ export const handleLogOut = createAsyncThunk(
 
 
 const setError = (state, action) => {
-    state.status = 'rejected';
+    state.status = "rejected";
     state.error = action.payload;
-    console.log(state.error)
 }
 
 const signSlice = createSlice({
@@ -144,10 +150,11 @@ const signSlice = createSlice({
         currentUser: {}
     },
     reducers: {
+        clearSignErr(state, action) {
+            state.error = null;
+            state.status = "resolved";
+        },
         setCurentUser(state, action) {
-            state.loggedIn = true;
-            state.currentUser = action.payload;
-            console.log(state.currentUser);
         },
         submitSignUp(state, action) {
             state.loggedIn = true;
@@ -170,7 +177,7 @@ const signSlice = createSlice({
         logOut(state, action) {
             state.loggedIn = false;
             state.currentUser = {};
-            
+
         },
     },
     extraReducers: {
@@ -182,6 +189,13 @@ const signSlice = createSlice({
         [getCurentUser.fulfilled]: (state, action) => {
             state.status = "resolved";
             console.log(state.status);
+        },
+        [getCurentUser.rejected]: (state, action) => {
+            state.status = "rejected";
+            state.loggedIn = false;
+            state.currentUser = {};
+            console.log(action.payload);
+            state.status = "resolved";
         },
         //регистрация
         [handleSubmitSignUp.pending]: (state) => {
@@ -226,6 +240,6 @@ const signSlice = createSlice({
     },
 
 })
-export const {setCurentUser, submitSignUp, submitSingIn, updateUser, logOut} = signSlice.actions;
+export const {clearSignErr, setCurentUser, submitSignUp, submitSingIn, updateUser, logOut} = signSlice.actions;
 
 export default signSlice.reducer;

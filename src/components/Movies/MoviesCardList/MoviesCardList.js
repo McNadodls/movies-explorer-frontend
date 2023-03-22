@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useState } from "react";
 export default function MoviesCardList ({movies, moviesFounded, savedMovies, quantityFilms, handleMoreButton, handleSavedMovie, handleDeleteMovie, noMovieTitle}) {
     
     const renderMovie = useMemo(() =>{
-            return moviesFounded !== null || undefined ? moviesFounded.movies : movies
+        return moviesFounded !== null || undefined ? moviesFounded.movies : movies
     }, [movies, moviesFounded])
 
     return(

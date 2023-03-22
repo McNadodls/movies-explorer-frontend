@@ -27,7 +27,7 @@ export default function Profile({values, handleChange, errors, isValid, resetFor
         e.preventDefault();
         dispatch(handleUpdateUser({input__profoleName, input__profoleEmail}));
         setEditForm(false);
-        e.target.closest("form").reset();
+        // e.target.closest("form").reset();
         resetForm();
     }
 
