@@ -2,9 +2,9 @@ import "../App.css";
 import React, { useEffect, useState, useMemo } from "react";
 import { Route, Redirect, Switch, useRouteMatch, useHistory, Router } from "react-router-dom";
 
-import useFormWithValidation from "../hooks/useFormWithValidation";//Валидация
 import Preloader from "./Preloader/Preloader";//Прелоудер
 import ProtectedRoute from "./containers/ProtectedRoute/ProtectedRoute";//Защита аваторизацией
+import {breakPointLowResolution, breakPointHighResolutioln, filmsQantityS, filmsQantityM, filmsQantityL, stepQuantityS, stepQuantityM} from "../constants"; //константы
 
 /*секции*/
 import Header from "./Header/Header";
@@ -27,8 +27,9 @@ export default function App() {
     
     const screenWidth = window.screen.width; //узнатькакое расширение
     const history = useHistory();
+    
     // eslint-disable-next-line no-restricted-globals
-    const firstPath = useMemo(() => location.pathname, [])
+    const firstPath = useMemo(() => location.pathname, []);
 
     const dispatch = useDispatch();
 
@@ -49,8 +50,6 @@ export default function App() {
 
     const [quantityFilms, setQuantityFilms] = useState(0);
 
-    const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
-
     useEffect(() => {
         const allStatus = [statusSign, statusSign]
         const nowIsLoading = allStatus.some(status => status === "loading"
@@ -68,19 +67,21 @@ export default function App() {
 
     // //информация о user
     useEffect(() => {
+        if (currentUser.token){
             dispatch(getCurentUser());
+        }
     }, []);
 
     //отрисовка хедера и футера на странице
     useEffect(() => {
         history.listen(() => {
             closeAllPopups();
-            resetForm();
             if (history.location.pathname === '/sign-in' || history.location.pathname === '/sign-up') {
                 setHeader(false);
                 setFooter(false);
               } else if (history.location.pathname === '/profile') {
                 setHeader(true);
+                console.log("Это профиль, отключаю футер")
                 setFooter(false);
               } else {
                 setHeader(true);
@@ -91,21 +92,21 @@ export default function App() {
 
     //количество фильов на странице
     useEffect(() => { 
-        if (screenWidth < 576) {
-        setQuantityFilms(5);
-        } else if (screenWidth < 768) {
-        setQuantityFilms(8);
+        if (screenWidth < breakPointLowResolution) {
+        setQuantityFilms(filmsQantityS);
+        } else if (screenWidth < breakPointHighResolutioln) {
+        setQuantityFilms(filmsQantityM);
         } else {
-        setQuantityFilms(12);
+        setQuantityFilms(filmsQantityL);
         }
     }, []);
 
     //Кнопка еще
     function handleMoreButton() {
         if (screenWidth > 1280) {
-            setQuantityFilms(quantityFilms + 3);
+            setQuantityFilms(quantityFilms + stepQuantityM);
         } else {
-            setQuantityFilms(quantityFilms + 2);
+            setQuantityFilms(quantityFilms + stepQuantityS);
         }
     }
 
@@ -149,11 +150,6 @@ export default function App() {
                 <ProtectedRoute 
                     path="/profile"
                     component={Profile}
-                    values={values}
-                    handleChange={handleChange} 
-                    errors={errors}
-                    isValid={isValid} 
-                    resetForm={resetForm}
                     loggedIn={loggedIn}
                     isCheking={statusSign}
                 />
@@ -166,11 +162,6 @@ export default function App() {
                 <Route path="/main"><Main></Main></Route>
                 <Route path="/sign-in">
                     <Sign
-                        values={values}
-                        handleChange={handleChange} 
-                        errors={errors}
-                        isValid={isValid}
-                        resetForm={resetForm}
                         history={history}
                         textTille="Рады видеть!"
                         textSubmit="Войти"
@@ -180,12 +171,7 @@ export default function App() {
                 </Route>
                 <Route path="/sign-up">
                     <Sign
-                        values={values}
-                        handleChange={handleChange} 
-                        errors={errors}
-                        isValid={isValid}
                         history={history}
-                        resetForm={resetForm}
                         textTille="Добро пожаловать!"
                         textSubmit="Зарегистрироваться"
                         textSignature="Уже зарегистрированы?"

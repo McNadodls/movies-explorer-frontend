@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Input({handleChange, valueInput, classNameInput, classNameErr, errMassage, isSpan, ...rest }) {
-  
+
+export default function Input({handleChange, valueInput, classNameInput, classNameErr, isSpan, ...rest }) {
+
+  const [error, setError] = useState('');
+
+  function onChange(e) {
+    handleChange(e);
+    checkValidity(e);
+  }
+
+  function checkValidity(e) {
+    if (e.target.validationMessage) {
+      setError(e.target.validationMessage)
+    } else {
+      setError('');
+    }
+  }
+
   return (
     <>
-      <input onChange={handleChange} value={valueInput} className={`input ${classNameInput} ${errMassage? "input__error" : ""}`} {...rest} />
+      <input onChange={onChange} value={valueInput} className={`input ${classNameInput} ${error? "input__error" : ""}`} {...rest} />
       {isSpan ? 
-      <span className={`input__error ${classNameErr}`}>{errMassage}</span> 
+      <span className={`input__error ${classNameErr}`}>{error}</span> 
       : <></>}
     </>
   )

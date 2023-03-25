@@ -1,5 +1,5 @@
 import { Link, Route } from "react-router-dom";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useMemo, useRef} from "react";
 import Input from "../containers/Input/Input";
 import Form from "../containers/Form/Form";
 
@@ -7,54 +7,69 @@ import {useDispatch, useSelector} from "react-redux"
 import {handleUpdateUser, handleLogOut} from "../../store/signSlice"
 import {clearMovie} from "../../store/moviesSlice"
 
-export default function Profile({values, handleChange, errors, isValid, resetForm}) {
+export default function Profile() {
     
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.sign.currentUser);
+    const status = useSelector(state => state.sign.status);
 
-    const {input__profoleName, input__profoleEmail} = values;
+    const form = useRef();
+
+    const [name, setName] = useState(currentUser.name);
+    const [email, setEmail] = useState(currentUser.email);
+    const [isValid, setIsValid] = useState(false);
 
     const [editForm, setEditForm] = useState(false);
 
     function cancelEditForm (e) {
         e.preventDefault(); 
         setEditForm(false);
-        e.target.closest("form").reset();
-        resetForm();
+        // e.target.closest("form").reset();
+        // resetForm();
     }
 
-    function onSubmit (e) {
+    async function onSubmit (e) {
         e.preventDefault();
-        dispatch(handleUpdateUser({input__profoleName, input__profoleEmail}));
-        setEditForm(false);
+        await dispatch(handleUpdateUser({name, email}));
+        console.log(status); 
+        // setEditForm(false);
         // e.target.closest("form").reset();
-        resetForm();
+        // resetForm();
     }
+    console.log(editForm)
 
     function logOut (e) {
         e.preventDefault();
         dispatch(handleLogOut());
         dispatch(clearMovie());
-        e.target.closest("form").reset();
-        resetForm();
+        // e.target.closest("form").reset();
+        // resetForm();
     }
+
+    useEffect(() => {
+        if (form.current.checkValidity() && (name !== currentUser.name || email !== currentUser.email)) {
+          setIsValid(true);
+        } else {
+          setIsValid(false);
+        }
+    }, [email, name]);
+
 
     return (
         <section className="profile section">
             <div className="section__page section__page_screen_info">
                 <div className="profile__container">
                     <h2 className="profile__title">{`Привет, ${currentUser.name}`}</h2>
-                    <Form className="profile__form" onSubmit={onSubmit}>
+                    <form ref={form} className="profile__form" onSubmit={onSubmit} noValidate>
                         <div className="profile__input-container">
                             <fieldset className="profile__fieldset">
                                 <label className="profile__label" htmlFor="input__profoleName">Имя</label>
                                 <Input
-                                    handleChange={handleChange}
-                                    errMassage={errors.input__profoleName}
+                                    valueInput={name}
+                                    handleChange={(e) => {setName(e.target.value)}}
                                     classNameInput="profile__input"
                                     classNameErr="profile__error"
                                     
-                                    defaultValue={currentUser.name}
                                     id="input__profoleName" 
                                     name="input__profoleName"
                                     type="text"
@@ -68,13 +83,11 @@ export default function Profile({values, handleChange, errors, isValid, resetFor
                             <fieldset className="profile__fieldset">
                                 <label className="profile__label" htmlFor="input__profoleEmail">E-mail</label>
                                 <Input
-                                    handleChange={handleChange}
-                                    errMassage={errors.input__profoleEmail}
+                                    valueInput={email}
+                                    handleChange={(e) => {setEmail(e.target.value)}}
                                     classNameInput="profile__input"
                                     classNameErr="profile__error"
-                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
-
-                                    defaultValue={currentUser.email}
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.(ru|com)"
                                     id="input__profoleEmail" 
                                     name="input__profoleEmail"
                                     type="email"
@@ -98,9 +111,8 @@ export default function Profile({values, handleChange, errors, isValid, resetFor
                                 <button type="button" className="link profile__exit" onClick={cancelEditForm}>Отмена</button>
                             </>
                             }
-                            
                         </div>
-                    </Form>
+                    </form>
                 </div>
             </div>
         </section>

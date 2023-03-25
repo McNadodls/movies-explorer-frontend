@@ -64,6 +64,8 @@
 @import url(../components/popups/ErrorsPopup/style/errors-popup/errors-popup.css);
 @import url(../components/popups/ErrorsPopup/style/errors-popup/__list/errors-popup__list.css);
 @import url(../components/popups/ErrorsPopup/style/errors-popup/__card/errors-popup__card.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__card/_type/errors-popup__card_type_confirm.css);
+@import url(../components/popups/ErrorsPopup/style/errors-popup/__card/_type/errors-popup__card_type_error.css);
 @import url(../components/popups/ErrorsPopup/style/errors-popup/__close-btn/errors-popup__close-btn.css);
 @import url(../components/popups/ErrorsPopup/style/errors-popup/__text/errors-popup__text.css);
 
@@ -183,14 +185,3 @@
 @import url(../components/NotFound/style/not-found/__title/not-found__title.css);
 @import url(../components/NotFound/style/not-found/__subtitle/not-found__subtitle.css);
 @import url(../components/NotFound/style/not-found/__backward/not-found__backward.css);
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, compose } from "@reduxjs/toolkit";
+import { shortsDuration } from "../constants"
 
 //Запрос на все фильмы
 export const sendMovieRequest = createAsyncThunk(
@@ -156,7 +157,7 @@ export const updateAllFounded = createAsyncThunk(
 export function handleFoundMovies(arrMovies, query, isShorts) {
     return arrMovies.filter((movie) => {
         return movie.nameRU.toUpperCase().includes(query.toUpperCase()) && !isShorts ? movie
-        : movie.nameRU.toUpperCase().includes(query.toUpperCase()) && isShorts && movie.duration <= 40
+        : movie.nameRU.toUpperCase().includes(query.toUpperCase()) && isShorts && movie.duration <= shortsDuration
           ? movie : false
     })
 }
@@ -186,6 +187,7 @@ const moviesSlice = createSlice({
     initialState: {
         status: null,
         error: null,
+        message: null,
         allMovies: [],
         savedMovies: [],
         foundedMovies: null,

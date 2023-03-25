@@ -62,7 +62,7 @@ export default function SearchForm ({history}) {
     return(
         <section className="search-form section">
             <div className="section__page section__page_screen_movie">
-                <Form onSubmit={handleSearch} className="search-form__form">
+                <form onSubmit={handleSearch} className="search-form__form" noValidate>
                     <div className="search-form__container">
                         <img className="search-form__image" src={magnifier} alt="Поиск"/>
                         <Input 
@@ -78,7 +78,7 @@ export default function SearchForm ({history}) {
                         <input onChange={handleChangeShorts} checked={isShorts} value={isShorts} type="checkbox" id="search-form__checkbox" class="search-form__checkbox" />
                         <label htmlFor="search-form__checkbox" class="search-form__label">Короткометражки</label>
                     </div>
-                </Form>
+                </form>
             </div>
         </section>
     )

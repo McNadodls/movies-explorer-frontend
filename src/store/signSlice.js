@@ -28,7 +28,7 @@ export const getCurentUser = createAsyncThunk(
 //регистрация
 export const handleSubmitSignUp = createAsyncThunk(
     "sign/handleSubmitSignUp",
-    async function({input__userName, input__userEmail, input__userPass}, {rejectWithValue, dispatch}) {
+    async function({name, email, pass}, {rejectWithValue, dispatch}) {
         try {
             const response = await fetch('https://api.mcnad.movie.nomoredomains.work/signup' , {
                 method: 'POST',
@@ -36,9 +36,9 @@ export const handleSubmitSignUp = createAsyncThunk(
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "name": input__userName,
-                    "email": input__userEmail,
-                    "password": input__userPass,
+                    "name": name,
+                    "email": email,
+                    "password": pass,
                   })
             });
             if (!response.ok){
@@ -56,7 +56,7 @@ export const handleSubmitSignUp = createAsyncThunk(
 //вход
 export const handleSubmitSingIn = createAsyncThunk(
     "sign/handleSubmitSingIn",
-    async function({input__userEmail, input__userPass}, {rejectWithValue, dispatch}) {
+    async function({email, pass}, {rejectWithValue, dispatch}) {
         try {
             const response = await fetch('https://api.mcnad.movie.nomoredomains.work/signin' , {
                 method: 'POST',
@@ -64,8 +64,8 @@ export const handleSubmitSingIn = createAsyncThunk(
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    "email": input__userEmail,
-                    "password": input__userPass,
+                    "email": email,
+                    "password": pass,
                   })
             });
             if (!response.ok){
@@ -83,7 +83,7 @@ export const handleSubmitSingIn = createAsyncThunk(
 //изменение профиля
 export const handleUpdateUser = createAsyncThunk(
     "sign/handleUpdateUser",
-    async function({input__profoleName, input__profoleEmail}, {rejectWithValue, dispatch, getState}) {
+    async function({name, email}, {rejectWithValue, dispatch, getState}) {
         const token = getState().sign.currentUser.token;
         try {
             const response = await fetch('https://api.mcnad.movie.nomoredomains.work/users/me' , {
@@ -94,8 +94,8 @@ export const handleUpdateUser = createAsyncThunk(
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    "name": input__profoleName,
-                    "email": input__profoleEmail,
+                    "name": name,
+                    "email": email,
                 }),
             });
             if (!response.ok){
@@ -146,18 +146,22 @@ const signSlice = createSlice({
     initialState: {
         status: null,
         error: null,
+        message: null,
         loggedIn: false,
         currentUser: {}
     },
     reducers: {
         clearSignErr(state, action) {
             state.error = null;
+            state.message = null;
             state.status = "resolved";
         },
         setCurentUser(state, action) {
+            console.log("Проверил JWT все ок");
         },
         submitSignUp(state, action) {
             state.loggedIn = true;
+            state.message = "Регистрация прошла успешна";
             state.currentUser = action.payload;
             console.log(state.currentUser);
         },
@@ -167,11 +171,12 @@ const signSlice = createSlice({
             console.log(state.currentUser);
         }, 
         updateUser(state, action) {
+            state.message = "Профиль изменен";
             state.currentUser = {
                 ...state.currentUser,
                 "email": action.payload.email,
                 "name": action.payload.name,
-            }
+            };
             console.log(state.currentUser);
         },
         logOut(state, action) {
@@ -191,11 +196,9 @@ const signSlice = createSlice({
             console.log(state.status);
         },
         [getCurentUser.rejected]: (state, action) => {
-            state.status = "rejected";
             state.loggedIn = false;
             state.currentUser = {};
-            console.log(action.payload);
-            state.status = "resolved";
+            setError(state, action);
         },
         //регистрация
         [handleSubmitSignUp.pending]: (state) => {

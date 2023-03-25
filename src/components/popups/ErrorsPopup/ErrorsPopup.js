@@ -7,20 +7,25 @@ import { clearMovieErr } from "../../../store/moviesSlice";
 export default function ErrorsPopup() {
     const dispatch = useDispatch();
 
+    const messageSign = useSelector(state => state.sign.message);
     const errorSign = useSelector(state => state.sign.error);
     const errorMovie = useSelector(state => state.movies.error);
     const [arrErors, setArrErors] = useState([]);
 
     useEffect(() =>{
-        if(errorSign != null){
-            setArrErors([errorSign, ...arrErors])
+        if (messageSign != null) { 
+            setArrErors([{text: messageSign, isErr: false}, ...arrErors])
             dispatch(clearSignErr())
         }
-        if(errorMovie != null){
-            setArrErors([errorMovie, ...arrErors])
+        if (errorSign != null) {
+            setArrErors([{text: errorSign, isErr: true}, ...arrErors])
+            dispatch(clearSignErr())
+        }
+        if (errorMovie != null) {
+            setArrErors([{text: errorMovie, isErr: true}, ...arrErors])
             dispatch(clearMovieErr())
         }
-    }, [errorSign, errorMovie])
+    }, [messageSign, errorSign, errorMovie])
     
     function onClose (e) {
         e.preventDefault();
@@ -28,7 +33,8 @@ export default function ErrorsPopup() {
             if (`err${index}` === e.target.id) {
                 return(null)
             }else{
-            return(err)}}))
+            return(err)}
+        }))
     }
 
     return (
@@ -37,8 +43,8 @@ export default function ErrorsPopup() {
                 {
                 arrErors.map((err, index) => { 
                     return(
-                        <li id={`err${index}`} className="errors-popup__card">{/*белый фон*/}
-                            <p id={`err${index}`} className="errors-popup__text">{err}</p>{/*текст ошибки*/}
+                        <li id={`err${index}`} className={`errors-popup__card ${err.isErr? "errors-popup__card_type_error" : "errors-popup__card_type_confirm" }`}>
+                            <p id={`err${index}`} className="errors-popup__text">{err.text}</p>
                             <button id={`err${index}`} className="link popup__close-btn errors-popup__close-btn" onClick={onClose}></button>
                         </li>
                     )

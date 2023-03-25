@@ -1,52 +1,63 @@
 import { Link, Route } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Input from "../containers/Input/Input";
 import Form from "../containers/Form/Form";
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {handleSubmitSingIn, handleSubmitSignUp} from "../../store/signSlice"
 
 
-export default function Sign({values, handleChange, errors, resetForm, isValid, textTille, textSubmit, textSignature, textLink, history}) {
+export default function Sign({textTille, textSubmit, textSignature, textLink, history}) {
 
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.sign.currentUser);
 
-    const {input__userName, input__userEmail, input__userPass} = values;
+    const form = useRef();
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [name, setName] = useState('');
+    const [isValid, setIsValid] = useState(false);
 
-     function onSubmit (e) {
+    function onSubmit (e) {
         e.preventDefault();
-
-        (async function () {
-            if (history.location.pathname === '/sign-up') {
-                dispatch(await handleSubmitSignUp({input__userName, input__userEmail, input__userPass}));
-                console.log(values.input__userName, values.input__userEmail, values.input__userPass);
-            } else {
-                dispatch(await handleSubmitSingIn({input__userEmail, input__userPass}));
-    
-                console.log(values.input__userEmail, values.input__userPass);
-            }
-            history.push('/movie');
-            e.target.closest("form").reset();
-            resetForm();
-        })()
+        if (history.location.pathname === '/sign-up') {
+            dispatch(handleSubmitSignUp({name, email, pass}));
+            console.log(name, email, pass);
+        } else {
+            dispatch(handleSubmitSingIn({email, pass}));
+            console.log(email, pass);
+        }
     }
+    
+    useEffect(() => {
+        if (currentUser.token) {
+            history.push('/movie');
+        }
+    }, [currentUser.token]);
+
+    useEffect(() => {
+        if (form.current.checkValidity()) {
+          setIsValid(true);
+        } else {
+          setIsValid(false);
+        }
+      }, [email, pass, name, history.location.pathname]);
+
     return(
         <section className="sign section">
             <div className="section__page section__page_screen_info">
                 <div className="sign__container">
                     <Link to="/main" className="link sign__logo" />
                     <h2 className="sign__title">{textTille}</h2>
-                    <Form className="sign__form" onSubmit={onSubmit}>
+                    <form ref={form} className="sign__form" onSubmit={onSubmit} noValidate>
                         <div className="sign__input-container">
                             <Route path={"/sign-up"}>
                                 <label className="sign__label" htmlFor="input__userName" >Имя</label>
                                 <Input
-                                    handleChange={handleChange}
-                                    errMassage={errors.input__userName}
+                                    valueInput={name}
+                                    handleChange={(e) => {setName(e.target.value)}}
                                     classNameInput="sing__input"
                                     classNameErr="sing__error" 
-                                    valueInput={values.input__userName}
-
                                     id="input__userName" 
                                     name="input__userName" 
                                     type="text"
@@ -58,12 +69,11 @@ export default function Sign({values, handleChange, errors, resetForm, isValid, 
                             </Route>
                             <label className="sign__label" htmlFor="input__userEmail">E-mail</label>
                             <Input
-                                handleChange={handleChange}
-                                errMassage={errors.input__userEmail}
+                                valueInput={email}
+                                handleChange={(e) => {setEmail(e.target.value)}}
                                 classNameInput="sing__input"
                                 classNameErr="sing__error"
-                                valueInput={values.input__userEmail}
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.(ru|com)"
 
                                 id="input__userEmail" 
                                 name="input__userEmail"
@@ -75,12 +85,11 @@ export default function Sign({values, handleChange, errors, resetForm, isValid, 
                             />
                             <label className="sign__label" htmlFor="input__userPass">Пароль</label>
                             <Input
-                                handleChange={handleChange}
-                                errMassage={errors.input__userPass}
+                                valueInput={pass}
+                                handleChange={(e) => {setPass(e.target.value)}}
                                 classNameInput="sing__input"
                                 classNameErr="sing__error"
-                                valueInput={values.input__userPass}
-
+                                
                                 id="input__userPass" 
                                 name="input__userPass"
                                 type="password"
@@ -96,7 +105,7 @@ export default function Sign({values, handleChange, errors, resetForm, isValid, 
                             <Route path={"/sign-in"}><Link className="link sign__link" to="/sign-up">{textLink}</Link></Route>
                             <Route path={"/sign-up"}><Link className="link sign__link" to="/sign-in">{textLink}</Link></Route>
                         </div>
-                    </Form>
+                    </form>
                 </div>
             </div>
         </section>
