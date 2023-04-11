@@ -1,0 +1,5 @@
+.card__button_status_saved {
+    background: no-repeat center center;
+    background-color: #313131;
+    background-image: url(../../../../../../../../images/card/cross.svg);
+}

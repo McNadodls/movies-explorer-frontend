@@ -1,0 +1,12 @@
+.header__tabs {
+    display: none;
+}
+
+@media screen and (min-width: 769px) {
+    .header__tabs {
+        display: flex;
+        justify-content: space-between;
+        gap: 13px;
+        align-items: center;
+    }
+} 

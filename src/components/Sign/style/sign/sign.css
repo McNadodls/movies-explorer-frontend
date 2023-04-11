@@ -1,0 +1,12 @@
+.sign {
+    position: fixed;
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+}

@@ -1,0 +1,16 @@
+.section__title_theme_white {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #FFFFFF;
+    margin: 0;
+    height: 50px;
+    border-bottom: 1px solid #DADADA;
+}
+
+@media screen and (min-width: 768px) {
+    .section__title_theme_white {
+        font-size: 22px;
+        line-height: 27px;
+    }
+}

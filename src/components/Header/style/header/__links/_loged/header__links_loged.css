@@ -1,0 +1,9 @@
+.header__links_loged {
+    
+}
+
+@media screen and (min-width: 769px) {
+    .header__links_loged {
+        width: 100%;
+    }
+} 

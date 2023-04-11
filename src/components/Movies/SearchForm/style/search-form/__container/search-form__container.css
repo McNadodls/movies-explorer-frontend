@@ -1,0 +1,29 @@
+.search-form__container {
+    background: #222222;
+    box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 19px 19px;
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .search-form__container {
+        background: none;
+        box-shadow: none;
+        border-radius: none;
+        padding: 0;
+    }
+
+    .search-form__container::after {
+        content: "";
+        display: inline-block;
+        height: 40px;
+        width: 1px;
+        border-left: 1px solid #505050;
+        margin-right: 19px;
+        margin-left: 19px;
+    }
+} 

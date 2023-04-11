@@ -1,0 +1,25 @@
+.sign__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    padding-top: 56px;
+    padding-bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .sign__container {
+        align-items: flex-start;
+        width: 396px;
+        height: 560px;
+        padding: 0;
+    }
+} 
+
+@media screen and (min-width: 1280px) {
+    .sign__container {
+
+    }
+} 

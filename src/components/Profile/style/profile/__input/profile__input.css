@@ -1,0 +1,18 @@
+.profile__input {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: end;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    width: 100%;
+    max-width: 100%;
+    outline: none;
+    grid-row: 1;
+    transition: color 0.3s;
+}
+

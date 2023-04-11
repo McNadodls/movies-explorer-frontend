@@ -1,0 +1,16 @@
+.not-films__title {
+    font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    width: 80%;
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .not-films__title {
+        font-size: 40px;
+    }
+} 

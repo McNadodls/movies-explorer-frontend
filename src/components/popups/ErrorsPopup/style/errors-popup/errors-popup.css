@@ -1,0 +1,8 @@
+.errors-popup {
+    position: fixed;
+    box-sizing: border-box;
+    top: 0;
+	right: 0;
+    width: 100%;
+    max-width: 320px;
+}

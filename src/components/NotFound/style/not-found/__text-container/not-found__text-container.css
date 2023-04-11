@@ -1,0 +1,12 @@
+.not-found__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+}
+
+@media screen and (min-width: 768px) {
+    .not-found__text-container {
+        gap: 5px
+    }
+} 

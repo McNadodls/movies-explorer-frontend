@@ -1,0 +1,9 @@
+.input__error {
+    color: #EE3465;
+}
+.input__error:hover {
+    color: #EE3465;
+}
+.input__error:focus{
+	color: #EE3465;
+}

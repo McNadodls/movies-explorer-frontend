@@ -1,0 +1,10 @@
+.profile__label {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #FFFFFF;
+    width: 141px;
+    grid-row: 1;
+}

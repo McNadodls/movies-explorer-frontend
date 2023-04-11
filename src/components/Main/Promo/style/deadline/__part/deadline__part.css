@@ -1,0 +1,17 @@
+.deadline__part {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    margin: 0;
+    padding: 11px 0 11px;
+}
+
+@media screen and (min-width: 768px) {
+    .deadline__part {
+        font-size: 14px;
+        line-height: 17px;
+    }
+} 

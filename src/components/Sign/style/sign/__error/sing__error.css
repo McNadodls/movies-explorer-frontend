@@ -1,0 +1,11 @@
+.sing__error {
+    width: 100%;
+    max-width: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+	font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    height: 12px;
+    margin: 0 0 16px;
+}
